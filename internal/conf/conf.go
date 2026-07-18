@@ -81,9 +81,9 @@ type DatabaseConfig struct {
 
 // RedisConfig Redis 配置
 type RedisConfig struct {
-	Addrs    []string `yaml:"addrs"`
-	Password string   `yaml:"password"`
-	DB       int      `yaml:"db"`
+	Addr     string `yaml:"addr"`
+	Password string `yaml:"password"`
+	DB       int    `yaml:"db"`
 }
 
 // TicketConfig Ticket 加密配置
@@ -151,7 +151,7 @@ func (c *Config) PrintConfig() {
 	log.Printf("│ database.postgres.user     : %s", c.Database.Postgres.User)
 	log.Printf("│ database.postgres.password : %s", maskSecret(c.Database.Postgres.Password))
 	log.Printf("│ database.postgres.dbname   : %s", c.Database.Postgres.DBName)
-	log.Printf("│ redis.addrs                : %v", c.Redis.Addrs)
+	log.Printf("│ redis.addr                 : %s", c.Redis.Addr)
 	log.Printf("│ redis.password             : %s", maskSecret(c.Redis.Password))
 	log.Printf("│ redis.db                   : %d", c.Redis.DB)
 	log.Printf("│ ticket.expire_seconds      : %d", c.Ticket.ExpireSeconds)

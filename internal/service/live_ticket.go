@@ -28,7 +28,7 @@ type LiveTicket struct {
 // LiveTicketService 负责实时连接 Ticket 的申请与校验。
 type LiveTicketService struct {
 	cfg       *conf.TicketConfig
-	redis     redis.UniversalClient
+	redis     *redis.Client
 	aesGCM    cipher.AEAD
 	keyHashMu sync.RWMutex
 }

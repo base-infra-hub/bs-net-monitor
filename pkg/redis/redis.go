@@ -9,19 +9,19 @@ import (
 // SpacePrefix 本服务在 Redis 中的键命名空间前缀，所有键必须经 WrapKey 拼装。
 const SpacePrefix = "bs-net-monitor:"
 
-var client redis.UniversalClient
+var client *redis.Client
 
-// Init 根据配置初始化 Redis 客户端（Universal 客户端，兼容单点/哨兵/集群）。
+// Init 根据配置初始化 Redis 客户端（普通的单点 Redis 客户端）。
 func Init(cfg *conf.RedisConfig) {
-	client = redis.NewUniversalClient(&redis.UniversalOptions{
-		Addrs:    cfg.Addrs,
+	client = redis.NewClient(&redis.Options{
+		Addr:     cfg.Addr,
 		Password: cfg.Password,
 		DB:       cfg.DB,
 	})
 }
 
 // GetClient 返回已初始化的 Redis 客户端。
-func GetClient() redis.UniversalClient {
+func GetClient() *redis.Client {
 	return client
 }
 

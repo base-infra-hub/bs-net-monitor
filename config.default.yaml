@@ -42,10 +42,8 @@ auth:
     session_ttl_seconds: 86400
 
 # Redis 配置（用于 Session 存储、WebSocket Ticket 存储等）
-# addrs 为节点列表，支持单点或 Cluster 多点模式
 redis:
-  addrs:
-    - "localhost:6379"
+  addr: "localhost:6379"              # Redis 单点连接地址
   password: "your_redis_password"     # 无密码时留空字符串 ""
   db: 0
 
