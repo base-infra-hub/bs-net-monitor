@@ -1,0 +1,141 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f3f4f6;
+  color: #1f2329;
+}
+
+html.dark body {
+  background-color: #0b0b0e;
+  color: #e3e3e3;
+}
+
+#app {
+  width: 100%;
+  height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: 700;
+  color: #1f2329;
+}
+
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6 {
+  color: #f3f4f6;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Table overrides for dark mode */
+html.dark .n-data-table-th {
+  background: #18181c !important;
+  color: #f3f4f6 !important;
+}
+
+html.dark .n-data-table-td {
+  background: #121216 !important;
+}
+
+.t-card, .ip-status-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Premium Naive UI Dropdown Customization */
+.n-base-select-menu, .n-select-menu {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08) !important;
+  border-radius: 8px !important;
+}
+
+html.dark .n-base-select-menu, html.dark .n-select-menu {
+  background-color: rgba(20, 20, 25, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+.n-base-select-option {
+  color: #1f2329 !important;
+  transition: all 0.2s ease !important;
+  margin: 2px 4px !important;
+  border-radius: 6px !important;
+}
+
+html.dark .n-base-select-option {
+  color: #e3e3e3 !important;
+}
+
+.n-base-select-option--active, .n-base-select-option:hover {
+  background-color: rgba(37, 99, 235, 0.08) !important;
+  color: #2563eb !important;
+}
+
+html.dark .n-base-select-option--active, html.dark .n-base-select-option:hover {
+  background-color: rgba(96, 165, 250, 0.15) !important;
+  color: #60a5fa !important;
+}
+
+.n-base-select-option--selected {
+  background-color: rgba(37, 99, 235, 0.12) !important;
+  color: #2563eb !important;
+  font-weight: 600 !important;
+}
+
+html.dark .n-base-select-option--selected {
+  background-color: rgba(96, 165, 250, 0.25) !important;
+  color: #60a5fa !important;
+  font-weight: 600 !important;
+}
+

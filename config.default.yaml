@@ -1,0 +1,85 @@
+# BS-Net-Monitor 服务端配置模板
+# 使用前请将此文件复制/重命名为 config.yaml，然后填入实际的环境配置。
+# cp config.default.yaml config.yaml
+#
+# 注意：config.yaml 含有数据库密码、Redis 密码等敏感信息，
+# 请务必将 config.yaml 加入 .gitignore，不要提交到公共仓库！
+
+# HTTP 服务端口配置
+server:
+  # 监听端口，默认 8082
+  http_port: 8082
+
+# PostgreSQL 数据库配置
+# 须预先创建数据库，并启用 TimescaleDB 扩展（用于 ping_results 超表）：
+database:
+  postgres:
+    host: localhost
+    port: 5432
+    user: postgres
+    password: "your_postgres_password"
+    dbname: bs_net_monitor
+
+# 鉴权配置（Session + JWT 双轨）
+auth:
+  # JWT 服务标签校验：JWT 中的 tag 字段必须与此值完全一致才允许通过，
+  # 防止其他服务签发的 JWT 越权访问本服务。此项必须填写，不得留空。
+  service_tag: "BS-Net-Monitor"
+
+  # RSA 公钥，用于校验 JWT 签名（RS256）。
+  # 需要与签发 JWT 的私钥对应，通常由统一认证服务 bs-auth 提供。
+  # 支持两种格式：
+  #   1. 完整 PEM 块（含 -----BEGIN PUBLIC KEY----- 头尾）
+  #   2. 裸 Base64 字符串（程序自动补全 PEM 头尾）
+  rsa_public_key: "YOUR_RSA_PUBLIC_KEY_HERE"
+
+  # Web 后台管理员账号与登录会话管理
+  admin:
+    username: "admin"
+    password: "your_admin_password"   # 生产环境务必修改为强密码！
+    # Web 后台登录 Session 有效期，单位：秒。
+    # 例如 86400 表示登录态保持 24 小时。
+    session_ttl_seconds: 86400
+
+# Redis 配置（用于 Session 存储、WebSocket Ticket 存储等）
+# addrs 为节点列表，支持单点或 Cluster 多点模式
+redis:
+  addrs:
+    - "localhost:6379"
+  password: "your_redis_password"     # 无密码时留空字符串 ""
+  db: 0
+
+# Ticket 临时票据配置（用于 WebSocket 连接的一次性鉴权）
+ticket:
+  # AES 密钥，长度必须是 16、24 或 32 字节（对应 AES-128/192/256）。
+  # 请使用强随机字符串，不要使用示例值！
+  # 生成示例（Linux）：openssl rand -base64 32 | head -c 32
+  aes_key: "REPLACE_WITH_32_BYTE_RANDOM_KEY!!"
+
+  # Ticket 有效期，单位：秒。过期后 Ticket 失效，需重新申请。
+  expire_seconds: 60
+
+# WebSocket 实时推送配置
+ws:
+  # statistics（在线/离线/不稳定统计）推送间隔，单位：毫秒。
+  # 不填或 <= 0 时默认 1000。
+  statistics_push_interval_ms: 1000
+
+  # realtime（单 IP 实时状态明细）推送间隔，单位：毫秒。
+  # 不填或 <= 0 时默认 1000。
+  realtime_push_interval_ms: 1000
+
+# 日志配置
+log:
+  # 日志文件路径，相对路径基于可执行文件所在目录；留空则只输出到控制台。
+  path: "log/app.log"
+  # 单个日志文件最大大小（MB），超过自动轮转。
+  max_size_mb: 10
+  # 日志文件保留天数。
+  max_age_days: 7
+  # 保留的旧日志文件数量。
+  max_backups: 5
+  # 是否同时输出到控制台（开发环境建议 true，生产可改为 false）。
+  stdout: true
+  # 是否压缩旧日志文件（gzip）。
+  compress: false
